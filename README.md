@@ -11,14 +11,14 @@ correctly to heterogenous starting states, e.g. some nodes are already updated, 
 down for maintenance, and so on, while adhering to these rules:
 1. Only nodes from one "cluster" may be down at any given time.
 1. Nodes can only progress _forward_ towards their goal; they cannot regress to a previous state.
-   1. This is a necessary performance constraint.
+   1. This is a helpful performance constraint.
 1. No nodes may be taken down in any cluster, if more than one cluster has nodes down.
    1. This is a safety feature.
    1. Due to the constraint from item #3 in this list, the planner is unable to produce any plan
       given a starting state with >1 cluster with "down" nodes.
       * If that constraint is relaxed the algorithm itself is very capable of deciding to "up" some
-        nodes to get into a "safe" state. But as explained above, that constraint is necessary for
-        performance reasons.  
+        nodes to get into a "safe" state. But as explained above, that constraint really helps
+        with performance.
       * Smarter solutions are very possible, I'll cover that in the **Lessons** section.
 1. All nodes in a cluster must progress to the same maintenance "step" before any can move on to
    the next step.
@@ -40,6 +40,7 @@ down for maintenance, and so on, while adhering to these rules:
 ##### Install
 ```sh
 go get github.com/sayotte/plannerdemo
+go get gopkg.in/yaml.v2
 go install github.com/sayotte/plannerdemo/cmd/plannerdemo
 ``` 
 ##### Use
@@ -237,3 +238,4 @@ And there's no quality control on any of this. I did write some test code, but t
 or desire for presentability, much less quality... I simply needed to eliminate small logic errors
 as the causes for failures I was trying to overcome.
  
+
