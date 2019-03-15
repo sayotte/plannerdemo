@@ -50,28 +50,44 @@ bin/plannerdemo -genStateFile
 bin/plannerdemo
 ```
 ##### Example output
+Note how it skips unnecessary actions for nodes that are already partially
+through the upgrade process, and also how it catches all nodes in a cluster
+up to a given "step" before it progresses all nodes in the cluster to the
+next "step".
 ```
-main.go:121: Stop app: app2-2
-main.go:121: Update software: app2-1
-main.go:121: Update software: app2-2
-main.go:121: Start app: app2-2
-main.go:121: Start app: app2-1
-main.go:121: Warm cache: app2-2
-main.go:121: Warm cache: app2-1
-main.go:121: Add node to pool: app2-2
-main.go:121: Add node to pool: app2-1
-main.go:121: Drain node from pool: app1-2
-main.go:121: Drain node from pool: app1-1
-main.go:121: Stop app: app1-2
-main.go:121: Stop app: app1-1
-main.go:121: Update software: app1-2
-main.go:121: Update software: app1-1
-main.go:121: Start app: app1-2
-main.go:121: Start app: app1-1
-main.go:121: Warm cache: app1-2
-main.go:121: Warm cache: app1-1
-main.go:121: Add node to pool: app1-2
-main.go:121: Add node to pool: app1-1
+main.go:163: Drain node from pool: app1-1
+main.go:163: Stop app: app1-1
+main.go:163: Stop app: app1-2
+main.go:163: Update software: app1-3
+main.go:163: Update software: app1-2
+main.go:163: Update software: app1-1
+main.go:163: Start app: app1-4
+main.go:163: Start app: app1-3
+main.go:163: Start app: app1-2
+main.go:163: Start app: app1-1
+main.go:163: Warm cache: app1-5
+main.go:163: Warm cache: app1-4
+main.go:163: Warm cache: app1-3
+main.go:163: Warm cache: app1-2
+main.go:163: Warm cache: app1-1
+main.go:163: Add node to pool: app1-6
+main.go:163: Add node to pool: app1-5
+main.go:163: Add node to pool: app1-4
+main.go:163: Add node to pool: app1-3
+main.go:163: Add node to pool: app1-2
+main.go:163: Add node to pool: app1-1
+main.go:163: Drain node from pool: app2-2
+main.go:163: Drain node from pool: app2-1
+main.go:163: Stop app: app2-2
+main.go:163: Stop app: app2-1
+main.go:163: Update software: app2-2
+main.go:163: Update software: app2-1
+main.go:163: Start app: app2-2
+main.go:163: Start app: app2-1
+main.go:163: Warm cache: app2-2
+main.go:163: Warm cache: app2-1
+main.go:163: Add node to pool: app2-2
+main.go:163: Add node to pool: app2-1
 ```
 ##### Troubleshooting
 There are only three cases in which the planner will fail to produce a plan:

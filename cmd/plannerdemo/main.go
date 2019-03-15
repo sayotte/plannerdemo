@@ -12,10 +12,9 @@ import (
 	"github.com/sayotte/plannerdemo/planner"
 )
 
-
 type cliArgs struct {
 	startingStateFile string
-	genStateFile bool
+	genStateFile      bool
 }
 
 func parseArgs() cliArgs {
@@ -25,7 +24,7 @@ func parseArgs() cliArgs {
 
 	return cliArgs{
 		startingStateFile: *startingStateFile,
-		genStateFile: *genStateFile,
+		genStateFile:      *genStateFile,
 	}
 }
 
@@ -44,23 +43,64 @@ func genStateFile(filename string) error {
 			Cluster:            1,
 			SoftwareRevision:   1,
 			AppRunning:         true,
-			InLoadbalancerPool: true,
+			InLoadbalancerPool: false,
 			CacheWarmed:        true,
 		},
 		planner.NodeState{
-			Name:               "app2-1",
-			Cluster:            2,
+			Name:               "app1-3",
+			Cluster:            1,
 			SoftwareRevision:   1,
 			AppRunning:         false,
 			InLoadbalancerPool: false,
 			CacheWarmed:        false,
 		},
 		planner.NodeState{
+			Name:               "app1-4",
+			Cluster:            1,
+			SoftwareRevision:   2,
+			AppRunning:         false,
+			InLoadbalancerPool: false,
+			CacheWarmed:        false,
+		},
+		planner.NodeState{
+			Name:               "app1-5",
+			Cluster:            1,
+			SoftwareRevision:   2,
+			AppRunning:         true,
+			InLoadbalancerPool: false,
+			CacheWarmed:        false,
+		},
+		planner.NodeState{
+			Name:               "app1-6",
+			Cluster:            1,
+			SoftwareRevision:   2,
+			AppRunning:         true,
+			InLoadbalancerPool: false,
+			CacheWarmed:        true,
+		},
+		planner.NodeState{
+			Name:               "app1-7",
+			Cluster:            1,
+			SoftwareRevision:   2,
+			AppRunning:         true,
+			InLoadbalancerPool: true,
+			CacheWarmed:        true,
+		},
+
+		planner.NodeState{
+			Name:               "app2-1",
+			Cluster:            2,
+			SoftwareRevision:   1,
+			AppRunning:         true,
+			InLoadbalancerPool: true,
+			CacheWarmed:        true,
+		},
+		planner.NodeState{
 			Name:               "app2-2",
 			Cluster:            2,
 			SoftwareRevision:   1,
 			AppRunning:         true,
-			InLoadbalancerPool: false,
+			InLoadbalancerPool: true,
 			CacheWarmed:        true,
 		},
 	}
