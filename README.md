@@ -45,9 +45,9 @@ go install github.com/sayotte/plannerdemo/cmd/plannerdemo
 ``` 
 ##### Use
 ```sh
-bin/plannerdemo -genStateFile
+$GOPATH/bin/plannerdemo -genStateFile
 # Optionally, edit startingState.yaml to make interesting scenarios
-bin/plannerdemo
+$GOPATH/bin/plannerdemo
 ```
 ##### Example output
 Note how it skips unnecessary actions for nodes that are already partially
