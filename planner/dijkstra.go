@@ -4,8 +4,6 @@ import (
 	"container/heap"
 )
 
-
-
 func DijkstraFindPath(start interface{}, coster NodeCoster, isGoal NodeIsGoaler, nGen NeighborGenerator) (map[interface{}]interface{}, map[interface{}]float64, interface{}) {
 	startNode := &Neighbor{
 		value: start,

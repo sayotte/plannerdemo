@@ -339,7 +339,7 @@ func ExampleMaintenancePlanner() {
 	plan := mp.PlanActionsForTargetRevision(startingState, 2)
 	log.SetOutput(os.Stdout)
 
-	for _,action := range plan {
+	for _, action := range plan {
 		fmt.Println(action)
 	}
 	// Output:
