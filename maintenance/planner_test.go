@@ -1,4 +1,4 @@
-package planner
+package maintenance
 
 import (
 	"fmt"
@@ -335,7 +335,7 @@ func ExampleMaintenancePlanner() {
 	}
 
 	log.SetOutput(ioutil.Discard)
-	mp := &MaintenancePlanner{}
+	mp := &Planner{}
 	plan := mp.PlanActionsForTargetRevision(startingState, 2)
 	log.SetOutput(os.Stdout)
 

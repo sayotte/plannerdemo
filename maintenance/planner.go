@@ -1,4 +1,4 @@
-package planner
+package maintenance
 
 import (
 	"fmt"
@@ -8,13 +8,15 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/sayotte/plannerdemo/planner"
 )
 
-type MaintenancePlanner struct {
+type Planner struct {
 	expansions int
 }
 
-func (mp *MaintenancePlanner) PlanActionsForTargetRevision(startingState State, targetSoftwareRevision int) []MaintenanceAction {
+func (p *Planner) PlanActionsForTargetRevision(startingState State, targetSoftwareRevision int) []MaintenanceAction {
 	coster := func(src, dst interface{}) float64 {
 		return 1.0
 	}
@@ -53,7 +55,7 @@ func (mp *MaintenancePlanner) PlanActionsForTargetRevision(startingState State, 
 		&AddNodeToPoolAction{TargetRevision: targetSoftwareRevision},
 	}
 	neighborGen := func(n interface{}) []interface{} {
-		mp.expansions += 1
+		p.expansions += 1
 
 		startingState := n.(MaintenanceAction).FinalState()
 		var possibleActions []MaintenanceAction
@@ -77,7 +79,7 @@ func (mp *MaintenancePlanner) PlanActionsForTargetRevision(startingState State, 
 
 	startTime := time.Now()
 	//cameFrom, costSoFar, finalAction := DijkstraFindPath(
-	cameFrom, costSoFar, finalAction := AStarFindPath(
+	cameFrom, costSoFar, finalAction := planner.AStarFindPath(
 		&DoNothingAction{finalState: startingState},
 		coster,
 		estimator,
@@ -85,7 +87,7 @@ func (mp *MaintenancePlanner) PlanActionsForTargetRevision(startingState State, 
 		neighborGen,
 	)
 	runTime := time.Since(startTime)
-	log.Printf("Plan generated in %s; total expansions %d; total cost %f\n", runTime, mp.expansions, costSoFar[finalAction])
+	log.Printf("Plan generated in %s; total expansions %d; total cost %f\n", runTime, p.expansions, costSoFar[finalAction])
 
 	// if it didn't find any workable path, exit early
 	if finalAction == nil {

@@ -152,7 +152,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	mp := &maintenance.MaintenencePlanner{}
+	mp := &maintenance.Planner{}
 	plan := mp.PlanActionsForTargetRevision(startingState, 2)
 	if len(plan) == 0 {
 		log.Println("Empty plan returned.")
