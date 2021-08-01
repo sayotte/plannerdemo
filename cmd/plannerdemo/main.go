@@ -9,7 +9,7 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	"github.com/sayotte/plannerdemo/planner"
+	"github.com/sayotte/plannerdemo/maintenance"
 )
 
 type cliArgs struct {
@@ -29,8 +29,8 @@ func parseArgs() cliArgs {
 }
 
 func genStateFile(filename string) error {
-	startingState := planner.State{
-		planner.NodeState{
+	startingState := maintenance.State{
+		maintenance.NodeState{
 			Name:               "app1-1",
 			Cluster:            1,
 			SoftwareRevision:   1,
@@ -38,7 +38,7 @@ func genStateFile(filename string) error {
 			InLoadbalancerPool: true,
 			CacheWarmed:        true,
 		},
-		planner.NodeState{
+		maintenance.NodeState{
 			Name:               "app1-2",
 			Cluster:            1,
 			SoftwareRevision:   1,
@@ -46,7 +46,7 @@ func genStateFile(filename string) error {
 			InLoadbalancerPool: false,
 			CacheWarmed:        true,
 		},
-		planner.NodeState{
+		maintenance.NodeState{
 			Name:               "app1-3",
 			Cluster:            1,
 			SoftwareRevision:   1,
@@ -54,7 +54,7 @@ func genStateFile(filename string) error {
 			InLoadbalancerPool: false,
 			CacheWarmed:        false,
 		},
-		planner.NodeState{
+		maintenance.NodeState{
 			Name:               "app1-4",
 			Cluster:            1,
 			SoftwareRevision:   2,
@@ -62,7 +62,7 @@ func genStateFile(filename string) error {
 			InLoadbalancerPool: false,
 			CacheWarmed:        false,
 		},
-		planner.NodeState{
+		maintenance.NodeState{
 			Name:               "app1-5",
 			Cluster:            1,
 			SoftwareRevision:   2,
@@ -70,7 +70,7 @@ func genStateFile(filename string) error {
 			InLoadbalancerPool: false,
 			CacheWarmed:        false,
 		},
-		planner.NodeState{
+		maintenance.NodeState{
 			Name:               "app1-6",
 			Cluster:            1,
 			SoftwareRevision:   2,
@@ -78,7 +78,7 @@ func genStateFile(filename string) error {
 			InLoadbalancerPool: false,
 			CacheWarmed:        true,
 		},
-		planner.NodeState{
+		maintenance.NodeState{
 			Name:               "app1-7",
 			Cluster:            1,
 			SoftwareRevision:   2,
@@ -87,7 +87,7 @@ func genStateFile(filename string) error {
 			CacheWarmed:        true,
 		},
 
-		planner.NodeState{
+		maintenance.NodeState{
 			Name:               "app2-1",
 			Cluster:            2,
 			SoftwareRevision:   1,
@@ -95,7 +95,7 @@ func genStateFile(filename string) error {
 			InLoadbalancerPool: true,
 			CacheWarmed:        true,
 		},
-		planner.NodeState{
+		maintenance.NodeState{
 			Name:               "app2-2",
 			Cluster:            2,
 			SoftwareRevision:   1,
@@ -121,8 +121,8 @@ func genStateFile(filename string) error {
 	return nil
 }
 
-func parseStateFile(filename string) (planner.State, error) {
-	var startingState planner.State
+func parseStateFile(filename string) (maintenance.State, error) {
+	var startingState maintenance.State
 	inBytes, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return startingState, fmt.Errorf("ioutil.ReadFile(%q): %s", filename, err)
@@ -152,7 +152,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	mp := &planner.MaintenancePlanner{}
+	mp := &maintenance.MaintenencePlanner{}
 	plan := mp.PlanActionsForTargetRevision(startingState, 2)
 	if len(plan) == 0 {
 		log.Println("Empty plan returned.")
